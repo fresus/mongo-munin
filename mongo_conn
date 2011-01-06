@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 ## GENERATED FILE - DO NOT EDIT
 
@@ -6,23 +6,24 @@ import urllib2
 import sys
 import os
 
+DEFAULT_PORT = 28017
+
 try:
     import json
 except ImportError:
     import simplejson as json
 
 
-def getServerStatus():
+def getServerStatus(port):
     host = os.environ.get("host", "127.0.0.1")
-    port = 28017
     raw = urllib2.urlopen( "http://%s:%d/_status" % (host, port) ).read()
     return json.loads( raw )["serverStatus"]
 
 name = "connections"
 
 
-def doData():
-    print name + ".value " + str( getServerStatus()["connections"]["current"] )
+def doData(port):
+    print name + ".value " + str( getServerStatus(port)["connections"]["current"] )
 
 def doConfig():
 
@@ -42,6 +43,11 @@ if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "config":
         doConfig()
     else:
-        doData()
+		try:
+			port = int(sys.argv[1])
+		except (ValueError, IndexError):
+			port = DEFAULT_PORT
+
+		doData(port)
 
 

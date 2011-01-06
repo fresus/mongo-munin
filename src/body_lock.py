@@ -1,8 +1,8 @@
 
 name = "locked"
 
-def doData():
-    print name + ".value " + str( 100 * getServerStatus()["globalLock"]["ratio"] )
+def doData(port):
+    print name + ".value " + str( 100 * getServerStatus(port)["globalLock"]["ratio"] )
 
 def doConfig():
 

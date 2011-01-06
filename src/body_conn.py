@@ -2,8 +2,8 @@
 name = "connections"
 
 
-def doData():
-    print name + ".value " + str( getServerStatus()["connections"]["current"] )
+def doData(port):
+    print name + ".value " + str( getServerStatus(port)["connections"]["current"] )
 
 def doConfig():
 
