@@ -5,6 +5,7 @@
 import urllib2
 import sys
 import os
+import re
 
 DEFAULT_PORT = 28017
 
@@ -14,15 +15,21 @@ except ImportError:
     import simplejson as json
 
 
-def getServerStatus(port):
+def getServerStatus():
+    me = sys.argv[0]
+    match = re.compile('.*_([0-9]+)$')
+    try:
+        port = int(match.findall(me)[0])
+    except (IndexError, ValueError):
+        port = DEFAULT_PORT
     host = os.environ.get("host", "127.0.0.1")
     raw = urllib2.urlopen( "http://%s:%d/_status" % (host, port) ).read()
     return json.loads( raw )["serverStatus"]
 
 name = "locked"
 
-def doData(port):
-    print name + ".value " + str( 100 * getServerStatus(port)["globalLock"]["ratio"] )
+def doData():
+    print name + ".value " + str( 100 * getServerStatus()["globalLock"]["ratio"] )
 
 def doConfig():
 
@@ -42,11 +49,4 @@ if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "config":
         doConfig()
     else:
-		try:
-			port = int(sys.argv[1])
-		except (ValueError, IndexError):
-			port = DEFAULT_PORT
-
-		doData(port)
-
-
+		doData()

@@ -1,7 +1,7 @@
 
 
-def doData(port):
-    ss = getServerStatus(port)
+def doData():
+    ss = getServerStatus()
     for k,v in ss["opcounters"].iteritems():
         print( str(k) + ".value " + str(v) )
 

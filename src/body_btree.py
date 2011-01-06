@@ -1,9 +1,9 @@
 
-def get(port):
-    return getServerStatus(port)["indexCounters"]["btree"]
+def get():
+    return getServerStatus()["indexCounters"]["btree"]
 
-def doData(port):
-    for k,v in get(port).iteritems():
+def doData():
+    for k,v in get().iteritems():
         print( str(k) + ".value " + str(int(v)) )
 
 def doConfig():

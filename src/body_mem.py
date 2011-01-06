@@ -2,8 +2,8 @@
 def ok(s):
     return s == "resident" or s == "virtual" or s == "mapped"
 
-def doData(port):
-    for k,v in getServerStatus(port)["mem"].iteritems():
+def doData():
+    for k,v in getServerStatus()["mem"].iteritems():
         if ok(k):
             print( str(k) + ".value " + str(v * 1024 * 1024) )
 
