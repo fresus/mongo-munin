@@ -29,7 +29,7 @@ def getServerStatus():
     return json.loads( raw )["serverStatus"]
 
 def get():
-    return getServerStatus()["indexCounters"]["btree"]
+    return getServerStatus()["indexCounters"]
 
 def doData():
     for k,v in get().iteritems():
