@@ -9,7 +9,7 @@ def doData():
 
 def doConfig():
 
-    print "graph_title MongoDB memory usage"
+    print "graph_title MongoDB memory usage (%s)" % (getServerPort())
     print "graph_args --base 1024 -l 0 --vertical-label Bytes"
     print "graph_category MongoDB"
 
